@@ -7,6 +7,8 @@ type CartItem = {
   quantity: number;
 };
 
+type CartItemWithoutQuantity = Omit<CartItem, "quantity">;
+
 type CartState = {
   items: CartItem[];
 };
@@ -18,10 +20,7 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addToCart: (
-      state,
-      action: PayloadAction<{ id: string; title: string; price: number }>
-    ) => {
+    addToCart: (state, action: PayloadAction<CartItemWithoutQuantity>) => {
       const itemIndex = state.items.findIndex(
         (item) => item.id === action.payload.id
       );
@@ -46,7 +45,6 @@ export const cartSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
 export const { addToCart, removeFromCart } = cartSlice.actions;
 
 export default cartSlice.reducer;
