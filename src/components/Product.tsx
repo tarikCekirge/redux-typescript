@@ -1,3 +1,6 @@
+import { addToCart } from "../store/cart-slice";
+import { useCartDispacth } from "../store/hooks";
+
 type ProductProps = {
     id: string;
     image: string;
@@ -7,13 +10,18 @@ type ProductProps = {
 };
 
 const Product = ({
+    id,
     image,
     title,
     price,
     description,
 }: ProductProps) => {
 
-    const handleAddToCart = () => { }
+    const dispatch = useCartDispacth()
+
+    const handleAddToCart = () => {
+        dispatch(addToCart({ id, price, title }))
+    }
     return (
         <article className="product">
             <img src={image} alt={title} />
